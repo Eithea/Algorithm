@@ -1,0 +1,6 @@
+SWJungle/P3-Week01-04/ 에서
+Week0X/Eithea branch 생성
+브랜치에 답안 py 파일 카피해서 업로드
+week01/김지훈/문제번호.py
+main <-Week0X/Eithea Pull request
+제목에 내 이름 포함
