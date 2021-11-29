@@ -9,6 +9,10 @@ from collections import deque
 # heap loop
 from heapq import heappush, heappop
 
+# defaultdict
+from collections import defaultdict
+V = defaultdict(int)
+
 # input
 n = int(input())
 Vn, En = map(int, input().split())
