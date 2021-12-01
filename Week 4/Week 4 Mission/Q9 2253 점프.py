@@ -1,6 +1,5 @@
 import sys
 input = sys.stdin.readline
-from collections import defaultdict
 
 n, m = map(int, input().split())
 TF = [True for i in range(n + 1)]
