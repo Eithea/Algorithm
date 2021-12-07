@@ -2,6 +2,11 @@
 import sys
 input = sys.stdin.readline
 
+testcase = int(input())
+for t in range(testcase) : 
+    break
+
+
 # DFS
 sys.setrecursionlimit(10**8)
 # BFS
