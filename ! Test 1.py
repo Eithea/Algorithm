@@ -1,4 +1,6 @@
-n = 5
-I = [[0 for i in range(n)] for j in range(n)]
-A = [I[i][:] for i in range(n)]
-print(*A)
+i = 50000
+n = 20
+while n > 0 : 
+    print(i)
+    i = i - (i&-i)
+    n = n-1

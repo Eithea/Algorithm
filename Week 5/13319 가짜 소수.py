@@ -3,7 +3,7 @@ input = sys.stdin.readline
 from itertools import count
 from math import gcd
 
-n = int(input())
+n = 13079177569
 num = n
 if n == 1 : 
     print(1)
@@ -31,6 +31,4 @@ while n != 1 :
         if done : 
             break
 
-for i in PF : 
-    num = num * (i-1) // i
-print(num)
+print(num, PF[0])
