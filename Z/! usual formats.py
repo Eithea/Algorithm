@@ -8,13 +8,21 @@ for t in range(testcase) :
 
 
 # DFS
+import sys
+input = sys.stdin.readline
 sys.setrecursionlimit(10**8)
 # BFS
+import sys
+input = sys.stdin.readline
 from collections import deque
 # heap loop
+import sys
+input = sys.stdin.readline
 from heapq import heappush, heappop
 
 # defaultdict
+import sys
+input = sys.stdin.readline
 from collections import defaultdict
 V = defaultdict(int)
 
