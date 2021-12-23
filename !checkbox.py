@@ -1,2 +1,3 @@
-for i in range(10, 0, -1) : 
-    print(i)
+print(ord('A'))
+print(ord('Z'))
+print(ord('z'))
