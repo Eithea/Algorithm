@@ -1,0 +1,74 @@
+import sys
+input = sys.stdin.readline
+from collections import deque
+
+def MCMF(start, end) : 
+    mincost = 0
+    maxflow = 0
+    while True : 
+        before = [-1 for i in range(m+n+2)]
+        MC = [sys.maxsize for i in range(m+n+2)]
+        inQ = [False for i in range(m+n+2)]
+        que = deque()
+        que.append(start)
+        MC[start] = 0
+        inQ[start] = True
+        while que : 
+            now = que.popleft()
+            inQ[now] = False
+            for next in connect[now] : 
+                if maxF[now][next] - F[now][next] > 0 and MC[next] > MC[now] + C[now][next] : 
+                    MC[next] = MC[now] + C[now][next]
+                    before[next] = now
+                    if not inQ[next] : 
+                        que.append(next)
+                        inQ[next] = True
+        if before[end] == -1 : 
+            break
+        flow = sys.maxsize
+        now = end
+        while now != start : 
+            flow = min(flow, maxF[before[now]][now] - F[before[now]][now])
+            now = before[now]
+        now = end
+        while now != start : 
+            mincost = mincost + C[before[now]][now] * flow
+            F[before[now]][now] = F[before[now]][now] + flow
+            F[now][before[now]] = F[now][before[now]] - flow
+            now = before[now]
+        maxflow = maxflow + flow
+    return mincost, maxflow
+
+n, m = map(int, input().split())
+
+connect_source = [i for i in range(1, m+1)]
+connect_left = [0] + [i for i in range(m+1, m+n+1)]
+connect_right = [i for i in range(1, m+1)] + [m+n+1]
+connect_sink = [i for i in range(m+1, m+n+1)]
+connect = [connect_source] + [connect_left for j in range(m)] + [connect_right for j in range(n)] + [connect_sink]
+
+maxF = [[0 for i in range(m+n+2)] for i in range(m+n+2)]
+F = [[0 for i in range(m+n+2)] for i in range(m+n+2)]
+C = [[0 for i in range(m+n+2)] for i in range(m+n+2)]
+ln = list(map(int, input().split()))
+for i in range(1, n+1) : 
+    maxF[m+i][m+n+1] = ln[i-1]
+lm = list(map(int, input().split()))
+for i in range(1, m+1) : 
+    maxF[0][i] = lm[i-1]
+
+for i in range(1, m+1) : 
+    lc = list(map(int, input().split()))
+    for j in range(m+1, m+n+1) : 
+        maxF[i][j] = lc[j-m-1]
+
+for i in range(1, m+1) : 
+    lc = list(map(int, input().split()))
+    for j in range(m+1, m+n+1) : 
+        C[i][j] = lc[j-m-1]
+        C[j][i] = -lc[j-m-1]
+
+start, end = 0, m+n+1
+mincost, maxflow = MCMF(start, end)
+print(maxflow)
+print(mincost)

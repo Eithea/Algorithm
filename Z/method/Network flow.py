@@ -3,7 +3,7 @@ input = sys.stdin.readline
 from collections import deque
 
 def flowBFS(start, end) : 
-    flowsum = 0
+    maxflow = 0
     while True : 
         before = [-1 for i in range(n)]
         que = deque()
@@ -28,8 +28,8 @@ def flowBFS(start, end) :
             F[before[now]][now] = F[before[now]][now] + flow
             F[now][before[now]] = F[now][before[now]] - flow
             now = before[now]
-        flowsum = flowsum + flow
-    return flowsum
+        maxflow = maxflow + flow
+    return maxflow
 
 n = 6
 
@@ -52,7 +52,7 @@ input = sys.stdin.readline
 from collections import deque
 
 def flowBFS(start, end) : 
-    flowsum = 0
+    maxflow = 0
     while True : 
         before = [-1 for i in range(n)]
         que = deque()
@@ -77,8 +77,8 @@ def flowBFS(start, end) :
             F[before[now]][now] = F[before[now]][now] + flow
             F[now][before[now]] = F[now][before[now]] - flow
             now = before[now]
-        flowsum = flowsum + flow
-    return flowsum
+        maxflow = maxflow + flow
+    return maxflow
 
 n, m = map(int, input().split())
 

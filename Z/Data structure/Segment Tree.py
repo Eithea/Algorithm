@@ -1,4 +1,6 @@
-# segment tree
+import sys
+input = sys.stdin.readline
+
 def SGTR(list) : 
     n = len(list)
     size = 1
