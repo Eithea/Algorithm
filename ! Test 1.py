@@ -1,2 +1,2 @@
-i = '2.0'
-print(float(i))
+a = '012'
+print(a[5:])
