@@ -6,17 +6,14 @@ class NODE(dict) :
         def __init__(self) :
             super().__init__()
             self.final = False
-            self.out = set()
+            self.out = 0
             self.fail = None
             
         def addout(self, out) :
-            if type(out) is set :
-                self.out = self.out.union(out)
-            else  :
-                self.out.add(out)
+            self.out = max(self.out, out)
         
-        def addchild(self, alphabet, node = None) :
-            self[alphabet] = NODE() if node is None else node
+        def addchild(self, alphabet) :
+            self[alphabet] = NODE()
 
 class AC() :      
     def __init__(self, PATTERN_LIST) :
@@ -26,16 +23,20 @@ class AC() :
         self.makeFailure()
         
     def search(self, TARGET) :
+        count = 0 
         now = self.head
-        ret = []
-        for letter in TARGET  :
+        for index in range(len(TARGET)) :
+            letter = TARGET[index] 
             while now is not self.head and letter not in now :
                 now = now.fail
             if letter in now :
                 now = now[letter]           
             if now.final :
-                ret.extend(list(now.out))
-        return ret
+                for i in range(index+1 - now.out, index+1) : 
+                    if TARGET[i] != 0 : 
+                        count = count + 1
+                        TARGET[i] = 0
+        return count
     
     def makeTrie(self) :
         for pattern in self.PATTERN_LIST :
@@ -45,7 +46,7 @@ class AC() :
                     now.addchild(letter)
                 now = now[letter]
             now.final = True
-            now.addout(pattern)
+            now.addout(len(pattern))
             
     def makeFailure(self) :
         que = deque()
@@ -55,7 +56,6 @@ class AC() :
             now = que.popleft()
             for next in now :
                 child = now[next]
-                
                 if now is self.head :
                     child.fail = self.head
                 else  :
@@ -70,16 +70,12 @@ class AC() :
                 que.append(child)
 
 P = []
+nt = int(input())
+target = list(input().rstrip())
 np = int(input())
 for i in range(np) : 
     P.append(input().rstrip())
-ACtrie = AC(P)
 
-nt = int(input())
-for i in range(nt) : 
-    target = input().rstrip()
-    ans = ACtrie.search(target)
-    if ans : 
-        print('YES')
-    else : 
-        print('NO')
+ACtrie = AC(P)
+ct = ACtrie.search(target)
+print(nt - ct)
