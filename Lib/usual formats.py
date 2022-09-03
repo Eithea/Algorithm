@@ -8,8 +8,12 @@ for t in range(testcase) :
 
 # usual input
 n = int(input())
+
 n, m = map(int, input().split())
+
 l = list(map(int, input().split()))
+
+l = []
 for i in range(n) : 
     l.append(list(input().split()))
 
