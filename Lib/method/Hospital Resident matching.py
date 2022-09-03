@@ -35,8 +35,7 @@ for i in range(nR) :
 
 h = H[-1]
 left = 74
-# def recruiting(start, left) : 
-# h = start
+
 i = 0
 while left : 
     print(left, end = ' ')

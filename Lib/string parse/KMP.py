@@ -34,6 +34,6 @@ def KMP(string, text) :
     return ans
     
     
-text = 'baekjoon'
-string = 'aek'
+text = 'sample_sample'
+string = 'amp'
 print(KMP(string, text))
