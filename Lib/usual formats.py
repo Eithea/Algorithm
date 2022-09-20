@@ -38,3 +38,9 @@ import sys
 input = sys.stdin.readline
 from collections import defaultdict
 V = defaultdict(int)
+
+# for deque
+import sys
+input = sys.stdin.readline
+from collections import deque
+que = deque()
