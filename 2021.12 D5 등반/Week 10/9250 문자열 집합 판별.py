@@ -83,3 +83,4 @@ for i in range(nt) :
         print('YES')
     else : 
         print('NO')
+    print(ans)
