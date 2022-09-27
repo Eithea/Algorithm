@@ -17,18 +17,18 @@
 ## 2022.10 ~
 * D4 등반
 * Class 8 알고리즘 공부
-    * DP 최적화 중 쉬운 것들
-        * Convex Hull Optimization (볼록 껍질)
-        * Divide & Conquer Optimization (분할 정복)
+    - [ ] 복습
+        - [ ] FFT
+        - [ ] Aho-Corasick
+        - [ ] Suffix Array
+        - [ ] mo's
+    
+    - [ ] DP 최적화
+        - [ ] Convex Hull Optimization (볼록 껍질)
+        - [ ] Divide & Conquer Optimization (분할 정복)
 
-    * Segment Tree 심화 개념
-        * Lazy Propagation 복습
-        * Heavy Light Decomposition
-        * Persistent Segment Tree
-
-    * 복습
-        * FFT
-        * Aho-Corasick
-        * mo's
-        * Suffix Array
-        
+    - [ ] Segment Tree 심화 개념
+        - [x] Lazy Propagation 복습
+        - [ ] Heavy Light Decomposition
+        - [ ] Persistent Segment Tree
+    
