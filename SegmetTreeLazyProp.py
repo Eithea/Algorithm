@@ -2,16 +2,16 @@ class SegmentTree :
     def __init__(self, arr, operator = max) : 
         self.op = operator
         self.leng = len(arr)
-        self.tree = [0 for _ in range(4* self.leng)]
-        self._createTree(arr, 1, 0, self.leng-1)
+        self.tree = [0 for _ in range(4*self.leng)]
+        self._createTree(arr, 1, 1, self.leng)
 
     def _createTree(self, arr, node, start, end) : 
         if start == end : 
-            self.tree[node] = arr[start]
+            self.tree[node] = arr[start-1]
             return self.tree[node]
         center = (start + end) // 2
-        a = self._createTree(arr, 2*node, start, center)
-        b = self._createTree(arr, 2*node+1, center+1, end)
+        a = self._createTree(self.tree, arr, 2*node, start, center)
+        b = self._createTree(self.tree, arr, 2*node+1, center+1, end)
         self.tree[node] = self.op(a, b)
         return self.tree[node]
     
@@ -28,11 +28,13 @@ class SegmentTree :
     def _update(self, node, start, end, index, delta) : 
         if index < start or index > end : 
             return
-        self.tree[node] = self.op(self.tree[node], delta)
-        if start < end : 
-            center = (start + end) // 2
-            self._update(2*node, start, center, index, delta)
-            self._update(2*node+1, center+1, end, index, delta)
+        if start == end : 
+            self.tree[node] = delta
+            return
+        center = (start + end) // 2
+        self._update(2*node, start, center, index, delta)
+        self._update(2*node+1, center+1, end, index, delta)
+        self.tree[node] = self.op(self.tree[2*node], self.tree[2*node+1])
     
     def rangeQuery(self, left, right) : 
         return self._search(1, 0, self.leng-1, left, right)
