@@ -18,8 +18,9 @@
 * D4 등반
 * Class 8 알고리즘 공부
     - [ ] 복습
+        - [x] Segment Tree
         - [ ] FFT
-        - [ ] Aho-Corasick
+        - [x] Aho-Corasick
         - [ ] Suffix Array
         - [ ] mo's
     
