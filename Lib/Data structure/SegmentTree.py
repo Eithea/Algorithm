@@ -25,17 +25,22 @@ class SegmentTree :
         b = self._search(2*node+1, center+1, end, left, right)
         return self.op(a, b)
     
-    def _update(self, node, start, end, index, delta) : 
-        if index < start or index > end : 
+    def _update(self, node, start, end, left, right, value) : 
+        if end < left or right < start : 
             return
-        self.tree[node] = self.op(self.tree[node], delta)
-        if start < end : 
-            center = (start + end) // 2
-            self._update(2*node, start, center, index, delta)
-            self._update(2*node+1, center+1, end, index, delta)
+        if left <= start and end <= right : 
+            self.tree[node] = self.tree[node] + value * (end - start + 1)
+            return
+        center = (start + end) // 2
+        self._update(2*node, start, center, left, right, value)
+        self._update(2*node+1, center+1, end, left, right, value)
+        self.tree[node] = self.tree[2*node] + self.tree[2*node+1]
     
-    def rangeQuery(self, left, right) : 
+    def Query(self, left, right) : 
         return self._search(1, 0, self.leng-1, left, right)
     
-    def updateByDelta(self, idx, delta) : 
-        self._update(1, 0, self.leng-1, idx, delta)
+    def Update(self, idx, delta) : 
+        self._update(1, 0, self.leng-1, idx, idx, delta)
+    
+    def UpdateRange(self, left, right, delta) : 
+        self._update(1, 0, self.leng-1, left, right, delta)
