@@ -5,42 +5,40 @@ class SegmentTree :
         self.op = operator
         self.idt = idt
         self.leng = len(arr)
-        self.tree = [0 for _ in range(4* self.leng)]
-        self._createTree(arr, 1, 0, self.leng-1)
+        self.size = 1 << (self.leng - 1).bit_length()
+        self.tree = [self.idt for _ in range(self.size*2)]
+        self._createTree(arr)
 
-    def _createTree(self, arr, node, start, end) : 
-        if start == end : 
-            self.tree[node] = arr[start]
-            return self.tree[node]
-        center = (start + end) // 2
-        a = self._createTree(arr, 2*node, start, center)
-        b = self._createTree(arr, 2*node+1, center+1, end)
-        self.tree[node] = self.op(a, b)
-        return self.tree[node]
-    
-    def _search(self, node, start, end, left, right) : 
-        if left > end or right < start : 
-            return self.idt
-        if left <= start and right >= end : 
-            return self.tree[node]
-        center = (start + end) // 2
-        a = self._search(2*node, start, center, left, right)
-        b = self._search(2*node+1, center+1, end, left, right)
-        return self.op(a, b)
-    
-    def _update(self, node, start, end, idx, data) : 
-        if idx < start or idx > end : 
-            return
-        if start == end : 
-            self.tree[node] = data
-            return
-        center = (start + end) // 2
-        self._update(self.tree, 2*node, start, center, idx, data)
-        self._update(self.tree, 2*node+1, center+1, end, idx, data)
-        self.tree[node] = self.op(self.tree[2*node], self.tree[2*node+1])
+    def _createTree(self, arr) : 
+        self.tree[self.size : self.size+self.leng] = arr
+        for i in reversed(range(self.size)) :
+            self.tree[i] = self.op(self.tree[2*i], self.tree[2*i+1])
     
     def Query(self, left, right) : 
-        return self._search(1, 0, self.leng-1, left, right)
+        left += self.size
+        right += self.size+1
+
+        curl = self.idt
+        curr = self.idt
+        while left < right:
+            if left %2:
+                curl = self.op(curl, self.tree[left])
+                left += 1
+            if right %2:
+                right -= 1
+                curr = self.op(self.tree[right], curr)
+            left //= 2
+            right //= 2
+
+        return self.op(curl, curr)
     
-    def Update(self, idx, delta) : 
-        self._update(1, 0, self.leng-1, idx, delta)
+    def IndexOf(self, idx) : 
+        return self.tree[idx + self.size]
+    
+    def Update(self, i, data) : 
+        i += self.size
+        self.tree[i] = data
+        i //= 2
+        while i:
+            self.tree[i] = self.op(self.tree[2*i], self.tree[2*i+1])
+            i //= 2
