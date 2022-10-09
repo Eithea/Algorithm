@@ -19,7 +19,7 @@
 * Class 8 알고리즘 공부
     - [ ] 복습
         - [x] Segment Tree
-        - [ ] FFT
+        - [x] FFT
         - [x] Aho-Corasick
         - [ ] Suffix Array
         - [ ] mo's
