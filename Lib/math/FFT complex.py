@@ -57,6 +57,16 @@ def IDFT_SQ(X) :
             X[i] = rl
     return X
 
+def power(X, k):
+    if k == 1:
+        return X
+    if k % 2 :
+        return IDFT(power(X, k-1), X)
+    X = power(X, k//2)
+    while X[-1] == 0:
+        X.pop()
+    return IDFT_SQ(X)
+
 a = [0,1,1,1]
 b = [0,1,1,1]
 c = [0,1,1,1]
