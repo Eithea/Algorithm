@@ -55,13 +55,13 @@ def IDFT_SQ(X) :
         X[i] = round(X[i][0] /n)
     return X
 
-def power(X, k):
-    if k == 1:
+def power(X, k) :
+    if k == 1 :
         return X
-    if k % 2 :
+    if k %2 :
         return IDFT(power(X, k-1), X)
     X = power(X, k//2)
-    while X[-1] == 0:
+    while X[-1] == 0 :
         X.pop()
     return IDFT_SQ(X)
 
