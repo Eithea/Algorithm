@@ -46,10 +46,31 @@ def IDFT(A, B) :
             C[i] = rl
     return C
 
-n = int(input())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
-a = a + a
-b.reverse()
+def SQ(A) : 
+    lenA = len(A)
+    n = 1
+    while n <= lenA : 
+        n = n * 2
+    n = n * 2
+    for i in range(n - lenA) : 
+        A.append(0)
+    C = [0 for i in range(n)]
+    w = complex(cos(2*pi/n), sin(2*pi/n))
+    FFT(A, w)
+    for i in range(n) : 
+        C[i] = A[i] * A[i]
+    FFT(C, w.conjugate())
+    for i in range(n) : 
+        rl = round(C[i].real /n)
+        ig = round(C[i].imag /n)
+        if ig : 
+            C[i] = complex(rl, ig)
+        else : 
+            C[i] = rl
+    return C
 
-print(max(IDFT(a, b)))
+a = [0,1,1,1]
+b = [0,1,1,1]
+
+print(IDFT(a, b))
+print(SQ(a))
