@@ -39,7 +39,7 @@ def IDFT(X, Y) :
             X[i] = rl
     return X
 
-def SQ(X) : 
+def IDFT_SQ(X) : 
     s = len(X) *2 -1
     n = 1 << s.bit_length()
     X += [0 for _ in range(n - len(X))]
@@ -62,4 +62,4 @@ b = [0,1,1,1]
 c = [0,1,1,1]
 
 print(IDFT(a, b))
-print(SQ(c))
+print(IDFT_SQ(c))
