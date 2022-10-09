@@ -39,10 +39,7 @@ def IDFT(X, Y) :
         X[i] = pro(X[i], Y[i])
     FFT(X, (w[0], -w[1]))
     for i in range(len(X)) :
-        if round(X[i][0] /n) : 
-            X[i] = 1
-        else : 
-            X[i] = 0
+        X[i] = round(X[i][0] /n)
     return X
 
 def IDFT_SQ(X) : 
@@ -55,10 +52,7 @@ def IDFT_SQ(X) :
         X[i] = pro(X[i], X[i])
     FFT(X, (w[0], -w[1]))
     for i in range(len(X)) :
-        if round(X[i][0] /n) : 
-            X[i] = 1
-        else : 
-            X[i] = 0
+        X[i] = round(X[i][0] /n)
     return X
 
 def power(X, k):
@@ -70,3 +64,10 @@ def power(X, k):
     while X[-1] == 0:
         X.pop()
     return IDFT_SQ(X)
+
+a = [0,1,1,1]
+b = [0,1,1,1]
+c = [0,1,1,1]
+
+print(IDFT(a, b))
+print(IDFT_SQ(c))
