@@ -1,76 +1,65 @@
-def FFT(f, w) : 
-    n = len(f)
+from math import pi, sin, cos
+
+def FFT(X, w) : 
+    n = len(X)
     if n == 1 : 
         return
     odd = [0 for i in range(n//2)]
     even = [0 for i in range(n//2)]
     for i in range(n) : 
         if i %2 : 
-            odd[i //2] = f[i]
+            odd[i //2] = X[i]
         else : 
-            even[i //2] = f[i]
+            even[i //2] = X[i]
     FFT(odd, w*w)
     FFT(even, w*w)
     e = 1
     for i in range(n//2) : 
-        f[i] = even[i] + e * odd[i]
-        f[i + n//2] = even[i] - e * odd[i]
+        X[i] = even[i] + e * odd[i]
+        X[i + n//2] = even[i] - e * odd[i]
         e = e * w
 
-from math import pi, sin, cos
-def IDFT(A, B) : 
-    lenA = len(A)
-    lenB = len(B)
-    maxl = max(lenA, lenB)
-    n = 1
-    while n <= maxl : 
-        n = n * 2
-    n = n * 2
-    for i in range(n - lenA) : 
-        A.append(0)
-    for i in range(n - lenB) : 
-        B.append(0)
-    C = [0 for i in range(n)]
+def IDFT(X, Y) : 
+    s = len(X) + len(Y) -1
+    n = 1 << s.bit_length()
+    X += [0 for _ in range(n - len(X))]
+    Y += [0 for _ in range(n - len(Y))]
     w = complex(cos(2*pi/n), sin(2*pi/n))
-    FFT(A, w)
-    FFT(B, w)
+    FFT(X, w)
+    FFT(Y, w)
+    for i in range(n) :
+        X[i] *= Y[i]
+    FFT(X, w.conjugate())
     for i in range(n) : 
-        C[i] = A[i] * B[i]
-    FFT(C, w.conjugate())
-    for i in range(n) : 
-        rl = round(C[i].real /n)
-        ig = round(C[i].imag /n)
+        rl = round(X[i].real /n)
+        ig = round(X[i].imag /n)
         if ig : 
-            C[i] = complex(rl, ig)
+            X[i] = complex(rl, ig)
         else : 
-            C[i] = rl
-    return C
+            X[i] = rl
+    return X
 
-def SQ(A) : 
-    lenA = len(A)
-    n = 1
-    while n <= lenA : 
-        n = n * 2
-    n = n * 2
-    for i in range(n - lenA) : 
-        A.append(0)
-    C = [0 for i in range(n)]
+def SQ(X) : 
+    s = len(X) *2 -1
+    n = 1 << s.bit_length()
+    X += [0 for _ in range(n - len(X))]
     w = complex(cos(2*pi/n), sin(2*pi/n))
-    FFT(A, w)
+    FFT(X, w)
+    for i in range(n) :
+        X[i] *= X[i]
+    FFT(X, w.conjugate())
     for i in range(n) : 
-        C[i] = A[i] * A[i]
-    FFT(C, w.conjugate())
-    for i in range(n) : 
-        rl = round(C[i].real /n)
-        ig = round(C[i].imag /n)
+        rl = round(X[i].real /n)
+        ig = round(X[i].imag /n)
         if ig : 
-            C[i] = complex(rl, ig)
+            X[i] = complex(rl, ig)
         else : 
-            C[i] = rl
-    return C
+            X[i] = rl
+    return X
 
 a = [0,1,1,1]
 b = [0,1,1,1]
+c = [0,1,1,1]
 
 print(IDFT(a, b))
-print(SQ(a))
+print(SQ(c))

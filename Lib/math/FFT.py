@@ -28,7 +28,7 @@ def FFT(X, inverse = False) :
     if inverse :
         invn = p - (p-1) // n
         for i in range(n) :
-            X[i] = (X[i] * invn)%p
+            X[i] = (X[i] * invn) %p
     return
 
 def IDFT(X, Y):
@@ -38,7 +38,7 @@ def IDFT(X, Y):
     Y += [0 for _ in range(n - len(Y))]
     FFT(X)
     FFT(Y)
-    for i in range(n):
+    for i in range(n) :
         X[i] *= Y[i]
     FFT(X, True)
     return X
