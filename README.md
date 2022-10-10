@@ -22,11 +22,11 @@
         - [x] FFT
         - [x] Aho-Corasick
         - [ ] Suffix Array
-        - [ ] mo's
+        - [x] mo's
     
     - [ ] DP 최적화
-        - [ ] Convex Hull Optimization (볼록 껍질)
-        - [ ] Divide & Conquer Optimization (분할 정복)
+        - [ ] Convex Hull Optimization
+        - [ ] Divide & Conquer Optimization
 
     - [ ] Segment Tree 심화 개념
         - [x] Lazy Propagation 복습
