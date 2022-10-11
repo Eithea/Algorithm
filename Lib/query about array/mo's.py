@@ -14,12 +14,12 @@ def value_out(x) :
     global value
     value -= x * distribution[x] **2
 
-def range_in(x) : 
+def range_push(x) : 
     value_out(x)
     distribution[x] += 1
     value_in(x)
 
-def range_out(x) : 
+def range_pop(x) : 
     value_out(x)
     distribution[x] -= 1
     value_in(x)
@@ -44,17 +44,17 @@ ans = [None for i in range(k)]
 pl, pr = Q[0][0], Q[0][0] -1
 for l, r, i in Q : 
     while l > pl : 
-        range_out(A[pl])
+        range_pop(A[pl])
         pl += 1
     while l < pl : 
         pl -= 1
-        range_in(A[pl])
+        range_push(A[pl])
     while r < pr : 
-        range_out(A[pr])
+        range_pop(A[pr])
         pr -= 1
     while r > pr : 
         pr += 1
-        range_in(A[pr])
+        range_push(A[pr])
     ans[i] = value
 
 print(*ans)
